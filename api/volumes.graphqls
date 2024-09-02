@@ -1,0 +1,49 @@
+input DuploVolumeInput {
+  appId: String
+	accessMode: String
+    name: String  
+    path: String
+    containerPath: String
+    hostPath: String
+    size: String
+    volumeTypeId: String
+    isRead: Boolean
+    isHostVolume: Boolean
+}
+
+type VolumeType {
+  id: String
+  name: String
+  isRead: Boolean
+  isHostVolume: Boolean
+  description: String
+}
+
+type VolumeByApp {
+    appId: String
+	  accessMode: String
+    name: String  
+    path: String
+    containerPath: String
+    hostPath: String
+    size: String
+    volumeTypeId: String
+    isRead: Boolean
+    isHostVolume: Boolean
+
+}
+
+input UpdateVolumeInput{
+  appName: String
+  volumeSize: String
+}
+
+extend type Query {
+  getVolumeType: [VolumeType]
+  getVolumeByAppId(appId: String): [VolumeByApp]
+}
+
+extend type Mutation{
+  createDuploVolume(input: [DuploVolumeInput]): OutputMessage
+  updateVolume(input: UpdateVolumeInput): String
+}

@@ -1,0 +1,92 @@
+input StartAndStopVM {  
+  instanceName: String
+  action: String
+}
+
+input Host {
+ id: Int
+ orgId: String
+ type: String
+ serviceAccountURL: String
+ status: String
+ zone: String
+ instanceName: String
+ instanceId: String
+ accessKey: String
+ secretKey: String
+ subscriptionId: String
+ resourceGroupName: String
+ clientId: String
+ clientSecret: String
+ tenantId: String
+ createdBy: String
+ createdAt: Time
+ isActive: Boolean
+}
+
+type HostDetails {
+ id: Int
+ orgId: String
+ type: String
+ serviceAccountURL: String
+ status: String
+ zone: String
+ instanceName: String
+ instanceId: String
+ accessKey: String
+ secretKey: String
+ createdBy: String
+ createdAt: Time
+ isActive: Boolean
+}
+
+
+
+type Activity {
+	Id: String!
+	Type: String!
+	Activities: String!
+	Message: String!
+  createdAt: Time
+}
+
+type HostPayload {
+ id: Int
+ orgId: String
+ orgName: String
+ type: String
+ serviceAccountURL: String
+ status: String
+ zone: String
+ instanceName: String
+ instanceId: String
+ accessKey: String
+ secretKey: String
+ subscriptionId: String
+ resourceGroupName: String
+ clientId: String
+ clientSecret: String
+ tenantId: String
+ createdBy: String
+ createdAt: Time
+ InstanceActivity: [Activity]
+}
+
+type VmInstanceMessage {
+    id: Int
+    message: String
+}
+
+
+extend type Query {
+  getHost(orgId: String): [HostPayload]
+  getHostByName(instanceName: String): HostDetails
+}
+
+extend type Mutation{
+  NodeAction(input: StartAndStopVM): VmInstanceMessage!
+  createHost(input: Host): VmInstanceMessage!  
+  deleteHost(id: Int): String!
+  NodeActionAWS(input: StartAndStopVM): VmInstanceMessage!
+  NodeActionAzure(input: StartAndStopVM): VmInstanceMessage!
+}

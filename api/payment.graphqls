@@ -1,0 +1,78 @@
+type Payment {
+    id :String!
+    amount :Int!
+    currency :String!
+    clientSecretId :String!
+}
+
+input CreatePaymentIntent {
+    amount :Int!
+    customerId :String!
+    
+}
+
+type AttachPayment {
+    id :String!
+    customerId :String!
+    paymentMethodId :String!
+    email :String!
+    name :String!
+    city :String!
+    country :String!
+    state :String!
+    type :String!
+}
+
+
+input CreateAttachPaymentMethod {
+    customerId :String!
+    paymentMethodId :String!
+    
+    
+}
+
+type StripeSubscription {
+    customerId :String!
+    priceId :String!
+    defaultPaymentMethodid :String!
+    planId :String!
+    userID :Int!
+    customerSubscriptionId :String!
+    accessToken :String!
+    email :String!
+    price :String!
+    status :String!
+    name :String!
+
+}
+
+input CreateStripeSubscription {
+    customerId :String!
+    priceId :String!
+    defaultPaymentMethodid :String!
+    accessToken :String
+    sessionId :String
+    
+        
+}
+
+
+
+type PriceList {
+    productid :String!
+    priceid :String!
+    nickname :String!
+    description :String!
+    unitamount :Int!
+}
+
+
+extend type Query {
+    getpricelist :[PriceList]
+}
+
+extend type Mutation {
+CreatePaymentIntent(input:CreatePaymentIntent!): Payment!
+CreateAttachPaymentMethod(input:CreateAttachPaymentMethod!): AttachPayment!
+CreateStripeSubscription(input:CreateStripeSubscription!): StripeSubscription!
+}

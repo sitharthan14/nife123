@@ -1,0 +1,172 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "description": "Authenticate user to create JWT token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "Authenticate user",
+                "parameters": [
+                    {
+                        "description": "Create Token",
+                        "name": "dataBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/users.LoginRequestBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/users.TokenResponseBody"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/users.TokenErrorBody"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/users.TokenErrorBody"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/refreshToken": {
+            "post": {
+                "description": "Reauthenticate user by renewing JWT token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "refreshToken"
+                ],
+                "summary": "Reauthenticate user using refresh_token",
+                "parameters": [
+                    {
+                        "description": "Refresh Token",
+                        "name": "dataBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/users.RefreshTokenRequestBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/users.TokenResponseBody"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/users.TokenErrorBody"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/users.TokenErrorBody"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "users.Attributes": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.Data": {
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "$ref": "#/definitions/users.Attributes"
+                }
+            }
+        },
+        "users.LoginRequestBody": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/users.Data"
+                }
+            }
+        },
+        "users.RefreshTokenRequestBody": {
+            "type": "object",
+            "properties": {
+                "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.TokenAttrib": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.TokenAttributes": {
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "$ref": "#/definitions/users.TokenAttrib"
+                }
+            }
+        },
+        "users.TokenErrorBody": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.TokenResponseBody": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/users.TokenAttributes"
+                }
+            }
+        }
+    }
+}

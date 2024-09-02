@@ -1,0 +1,29 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJek1EUXlOVEV4TXpBME4xb1hEVE16TURReU1qRXhNekEwTjFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTkU3Ck05YmQ2MzNQcThxYnQwelhsVXd1cjFSR2ZXcW12N1h1bnBsWmZvc1ZyWWJRQnlITlY5NnhVaS9OQk52WHgzRWkKelpSMGVMZ0VNOFdhY0RUeEhoRkRWc1pUMVNPQzlzTHpXYVBrbjdFNnBDbjl3bUtNei8zRW5XVk04bkRadFQvMApkWVJYWFlUU0lRVHZwZ3JSbk5oSXVnSXVOdlo4YkRpM1A5cEVhUWwzZDI0UEN1VFFhSDZOL2FMSmxZR3Z2ZnEwCnRyMXp0a0tvb2swM1llZnVnUzBlWUw4Q293UjlkRE9UNFJvZGpTVWRDRWRYaHB4cFl4a1UySXVCOEdDT1BlN1YKOXBEQXpkNHVFWGltR2ZkaVBzT05id0ovb0VHdGxMNGFYSWphblhQNkRBc2dJLzBwTnVmbjhpaGppNVhqalUyYQo0VU5NUjBBTHRkUEh0QlU3WnJjQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZOSXpPRFBtczdtcUdGcFlaRFRFSVQ1eXllZ0FNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRzFpQ2gyRnNCVm43T2NFaW1uNgp4U1NJNEZPamY3Rm5RSHE5U2pMMHFpYWJFUDFiMjQ3UlFRUVQ0M0lEd0ZsUzJwR2dDQmhjQlcvYlZKUUM0SHdTCm1DL0hLazNPMUpPK2t0WWFSRzYzdC9jVTl4VExDQmRFZ1VJVG5hbDVKZ3R6Nk9CQ0FlZ0YrVUZlTjF6THJKdzkKbkJ1NXVaMnZtaDEzU1ZuMFlkaXNUNjA4TUlXM1daNlk2MUZNTitsYjRJYzNCa2w0NWZzOWZxSlB4OUhQbll5Vgo3SjJlMEoyRzhxME9Pb1BlUjVlaTRmbWVNTW1FR25sQkZBUllBM2lmN09FMmJnbkVRK3ZVVlk0WHQrcWIvdDY1CmlDTFlnWTRsWWp2Vm9xN29HUy9wVW1IT3dPMnczZ2RsS2dLR1dRT1BvZncwcHZRZ0lST0tJY01yQjdjS0tBM0oKT3JNPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://501E8D84B0E409B45AD4670B2BA8DB89.gr7.us-east-2.eks.amazonaws.com
+  name: arn:aws:eks:us-east-2:882966709966:cluster/us-east-2-prod-eks-cluster
+contexts:
+- context:
+    cluster: arn:aws:eks:us-east-2:882966709966:cluster/us-east-2-prod-eks-cluster
+    user: arn:aws:eks:us-east-2:882966709966:cluster/us-east-2-prod-eks-cluster
+  name: arn:aws:eks:us-east-2:882966709966:cluster/us-east-2-prod-eks-cluster
+current-context: arn:aws:eks:us-east-2:882966709966:cluster/us-east-2-prod-eks-cluster
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:us-east-2:882966709966:cluster/us-east-2-prod-eks-cluster
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - --region
+      - us-east-2
+      - eks
+      - get-token
+      - --cluster-name
+      - us-east-2-prod-eks-cluster
+      - --output
+      - json
+      command: aws

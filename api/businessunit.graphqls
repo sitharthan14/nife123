@@ -1,0 +1,37 @@
+input BusinessUnitInput {
+    id: String
+     orgId: String
+     subOrg: String
+     name: String
+     createdAt: Time
+     isActive: Boolean
+}
+
+type getBusinessUnit{
+    id: String
+    name: String
+    isActive: Boolean
+
+}
+
+type listBusinessUnit{
+    id: String
+    orgId: String
+    orgName: String
+    subOrgId: String
+    subOrgName: String
+    name: String
+}
+
+extend type Query {
+    businessUnitList:[listBusinessUnit!]
+    getBusinessUnitById(name: String):listBusinessUnit
+    getBusinessUnitByOrgId(orgId: String, subOrgId: String):[listBusinessUnit]
+    getBusinessUnit(orgId: String!, subOrgId: String!): [getBusinessUnit!]
+}
+
+extend type Mutation {
+    createBusinessUnit(input: BusinessUnitInput!): String!
+    updateBusinessUnit(input: BusinessUnitInput!): String!
+    deleteBusinessUnit(id: String!): String!
+}

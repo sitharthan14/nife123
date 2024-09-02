@@ -1,0 +1,17 @@
+type AppStatus {
+    id: ID!
+    name: String!
+    deployed: Boolean
+    status: String
+    hostname: String
+    version: Int
+    appURL: String
+    organization: Organization
+    deploymentStatus: DeploymentStatus
+    allocations: [AllocationStatus]
+}
+
+input GetAppStatusInput {
+    appName: String!
+    showCompleted: Boolean!
+}

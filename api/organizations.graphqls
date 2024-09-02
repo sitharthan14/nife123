@@ -1,0 +1,185 @@
+type Organizations {
+    nodes: [Organization]
+}
+
+type OrganizationsandBusinessUnit {
+    nodes: [Organization]
+    businessUnit: [listBusinessUnit]
+}
+
+type SubOrganization {
+    id: String
+    name: String
+    slug: String
+    type: String
+    domains: Domains
+    region: [RegionDetails]
+    isActive: Boolean
+}
+
+type OrganizationDetails{
+    id: String
+    name: String
+    slug: String
+    type: String
+    apps: Apps
+    viewerRole : String
+    members : Members
+}
+
+type Members {
+    edges : [OrganizationMembershipEdge]
+}
+
+
+
+type OrganizationMembershipEdge {
+     id: String
+     role: String
+     joinedAt : Time
+     node : User
+     cursor : String
+     roleId: Int
+}
+
+type Apps {
+    nodes: [App]
+}
+
+
+type CreateOrganization {
+    organization : Organization
+}
+
+type DeleteOrganization {
+    deletedOrganizationId : String
+}
+
+type DeleteSubOrganization {
+    deletedSubOrganizationId : String
+}
+
+
+
+input CreateSecretInput{
+    name: String!
+    organizationId: String!
+    registryType: String!
+    registryInfo: Map
+}
+
+input UpdateSecretInput{     
+    registryType: String!
+    registryInfo: Map
+
+}
+
+input CreateOrganizationInput {
+    name : String!
+    type : String
+}
+
+input CreateSubOrganizationInput {
+    name: String!
+    parentOrgId: String!
+}
+
+input DeleteOrganizationInput {
+    organizationId : String!
+}
+
+input DeleteSubOrganizationInput {
+    subOrganizationId : String!
+}
+
+type OrganizationRegistryType {
+    id: String
+    name: String
+    slug: String
+    isActive: String
+}
+
+
+type Response {
+    message: String!
+}
+
+
+type OrgCountDetails {
+    totalOrgCount: Int
+    orgByAppCount: [AppOrgCount]
+}
+
+type AppOrgCount {
+    organization: String
+    apps: Int
+}
+
+
+
+type GetUserSecret {
+    id: String
+    organizationId: String
+    name: String
+    registryType: String
+    userName: String
+    passWord: String
+    Url: String
+    keyFileContent: String
+    registryName: String
+    isActive: Boolean
+    secretType: String
+
+}
+
+
+type GetSecRegistry {
+    id: String
+    name: String
+}
+
+input CreateNamespace{
+    name: [String]!
+}
+
+
+type OrganizationRegionTable {
+    id: String
+    organizationId: String
+    region_code: String
+    is_default: Boolean
+}
+
+
+
+extend type Query {
+    organizations: Organizations!
+    getAllParentOrganizations: Organizations!
+    organizationsandBusinessUnit: OrganizationsandBusinessUnit!
+    subOrganizations: Organizations!
+    subOrganizationsByParentId(parentOrgId: String): Organizations!
+    getParentIdBySubOrganization(subOrgId: String): Organizations!
+    organization(slug: String!): OrganizationDetails! 
+    getOrganizationByOrgId(id: String!): Organization!
+    organizationRegistryType: [OrganizationRegistryType!]  
+    getSecret(name:String):[GetUserSecret!] 
+    getRegistryByUser(orgId:String!, regType:String!):[GetSecRegistry!]
+    getAppByRegionCount:OrgCountDetails
+    getSecretByRegistryId(secretId:String): GetUserSecret
+}
+
+
+
+extend type Mutation {
+    createOrganization(input : CreateOrganizationInput!): CreateOrganization!
+    createSubOrganization(input : CreateSubOrganizationInput!): CreateOrganization!
+    deleteOrganization(input : DeleteOrganizationInput!): DeleteOrganization!
+    deleteSubOrganization(input: DeleteSubOrganizationInput!): DeleteSubOrganization!
+    createOrganizationSecret(input: CreateSecretInput): Response!
+    updateOrganizationSecret(name: String,input: UpdateSecretInput): Response!
+    deleteOrganizationSecret(name: String, id: String): Response!   
+    updateRegistryIdToApp(appName: String!,name: String):Response! 
+    updateOrganization(org: String, defaulttype: Boolean): String!
+    createNamespaceInCluster(input: CreateNamespace): String!
+    addUserAddedregionsToOrganizatiom(organizationId:[String]): String!
+}

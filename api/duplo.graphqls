@@ -1,0 +1,38 @@
+type DuploDeployOutput {
+    id: String
+    status: String
+    UserId: String
+    info: String
+    progress: Int
+    pollCount: String
+    createdAt: Time    
+    UpdatedAt: Time
+}
+
+
+type Duplolog {
+    data: String
+    dockerId: String
+    hostName: String
+    stdOut: Boolean
+    stdErr: Boolean
+    tail: Int
+}
+
+
+type OutputMessage {
+    message: String
+}
+
+
+extend type Query {
+    getDuploStatus(appName:String):[DuploDeployOutput]
+    getclusterLog(appName: String, region: String):String   
+}
+
+
+extend type Mutation {
+    deleteDuploApp(appName: String):OutputMessage
+}
+
+

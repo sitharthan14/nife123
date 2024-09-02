@@ -1,0 +1,43 @@
+input WorkloadManagement {
+ id: String
+ environmentName: String
+ environmentEndpoint: String
+ organizationId: String
+}
+
+type WorkloadManagementList {
+ id: String
+ environmentName: String
+ environmentEndpoint: String
+ organizationId: String
+ organizationName: String
+ subOrganizationId: String
+ businessUnitId: String
+ userId: String
+ createdAt: Time
+ apps: Nodes
+}
+
+type WorkLoadRegions{
+ id: String
+ environmentName: String
+ environmentEndpoint: String
+ organizationId: String
+ addedWorkLoadRegions: [Region] 
+}
+
+
+extend type Query {
+  getWorkloadMangementByUser:[WorkloadManagementList!]
+  getWorkloadMangementByorgnizationId(orgId: String, subOrgId: String, businessUnitId: String):[WorkloadManagementList!]
+  getWorkloadMangementByWlId(workloadId: String):WorkloadManagementList!
+  getWorkloadMangementByWlName(workloadName: String):WorkloadManagementList!
+  getWorkloadRegion(workloadId: String!):WorkLoadRegions
+}
+
+extend type Mutation{
+  createWorkloadManagement(input: WorkloadManagement): String!
+  deleteWorkloadManagement(id: String): String!
+  addWorkloadRegions(workLoadId: String!, regionCode: [String]!):String!
+  removeWorkloadRegions(wlid:String, wlRegion: String):String!
+}

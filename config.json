@@ -1,0 +1,18 @@
+{
+    "registry": {
+        "server": "hub.docker.com",
+        "username": "sundar21",
+        "password": "SmartWork@123",
+        "email": "sundar@gonife.com",
+        "secret_name": "poc-secret",
+        "repo_type": "private"
+        },
+    "domain_mapping": [
+        {
+            "domain_name": "nifeapps.duplocloud.net",
+            "ip_address": "191.122.12.23",
+            "kube_config_path":"./k8s_config/nifeapps/config",
+            "node_name": "ip-172-20-37-50.ap-south-1.compute.internal"
+        }
+    ]
+}

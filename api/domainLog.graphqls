@@ -1,0 +1,38 @@
+
+type QueryLogOutput {
+id: String
+message: String 
+queryName: String 
+resolverIp: String
+timeStamp: String 
+responseCode: String
+lastSyncTime: String
+times: Int
+}
+
+type GetClientSideLogs {
+    id: String
+    message: String
+    level: String
+    timeStamp: String
+    userId: String
+}
+
+input GetQueryLog {
+    startTime: String!
+    endTime: String!
+    hostName: String!
+}
+
+input ClientSideLogs {
+    message: String!
+    level: String!
+}
+
+ extend type Query {
+         getQueryLog(input:GetQueryLog!): [QueryLogOutput!]
+ }
+
+ extend type Mutation {
+        clientSideLog(input: ClientSideLogs!): String!
+ }

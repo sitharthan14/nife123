@@ -1,0 +1,48 @@
+type Permission{
+   id: String
+   module: String
+   title: String
+   create: Boolean
+   view: Boolean
+   delete: Boolean
+   update: Boolean
+   is_active: Boolean
+   created_at: Time
+}
+
+type planAndPermission{
+id: String
+planName: String
+apps: Int
+workloadManagement: Boolean
+organizationManagement: Boolean
+inviteUserLimit: Int
+applicationHealthDashboard: Boolean
+byoh: Boolean
+storage: Boolean
+versionControlPanel: Boolean
+singleSignOn: Boolean
+organizationCount: Int
+subOrganizationCount: Int
+businessunitCount: Int
+customDomain: Boolean
+appNotification: Boolean
+secret: Boolean
+monitoringPlatform: Boolean
+alertsAdvisories: Boolean
+auditLogs: Int
+sslSecurity: Boolean
+infrastructureConfiguration: Int
+replicas: Int
+k8sRegions: Int
+}
+
+
+extend type Query {
+  	getUserPermissions: [Permission]
+   getUserPermissionsByPlan: planAndPermission
+}
+
+extend type Mutation {
+     updateRole(userId:String, roleId:Int): String
+}

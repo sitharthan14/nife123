@@ -1,0 +1,777 @@
+scalar Time
+scalar Map
+
+input CreateAppInput {
+    name: String!
+    runtime: String!
+    organizationId: String!
+    subOrganizationId: String!
+    businessUnitId: String!
+    workloadManagementId: String!
+}
+
+type Nodes {
+    nodes: [App]
+}
+
+type ClusterNodes {
+    nodes: [ClusterInfo]
+}
+
+type RegionStatusNodes {
+    nodes: [RegionStatus]
+}
+
+type NewApp {
+    app: App!
+}
+
+input ConfigureRegionsInput{
+    appId: String!
+    allowRegions: [String]
+    denyRegions: [String]    
+    backupRegions: [String]
+}
+
+type SuspendApp {
+    app: App!
+}
+
+type ResumeApp {
+    app: App!
+}
+
+type RestartApp {
+    app: App!
+}
+
+type App {
+    id: String!
+    name: String!
+    status: String!
+    deployed: Boolean
+    hostname: String!
+    appUrl: String
+    version: Int!
+    release: Release
+    organization: Organization
+    secrets: [Secret]
+    currentRelease: Release
+    releases(first: Int): Releases
+    ipAddresses: IPAddresses
+    ipAddress: IPAddress
+    builds: Builds
+    changes: Changes
+    certificates: Certificates
+    certificate: AppCertificate
+    services: [Service]
+    config: AppConfig
+    createdAt: Time
+    parseConfig(definition: Map): AppConfig
+    allocations(showCompleted: Boolean): [AllocationStatus]
+    allocation: AllocationStatus
+    deploymentStatus(id : ID): DeploymentStatus
+    autoscaling: AutoscalingConfig
+    vmSize: VMSize
+    regions: [Region]
+    backupRegions: [Region]
+    volumes: Volumes
+    imageName: String
+    port: String
+    secretRegistryId: String
+    instanceId: String
+    dockerId: String
+    hostId: String
+    tenantId: String
+    envArgs: String
+    deployType: Int
+    containerId: String
+    builtinType: String
+    workloadManagementId: String
+    WorkloadManagementName: String
+    WorkloadManagementEndPoint: String
+    organizationId: String
+    organizationName: String
+    subOrganizationId: String
+    subOrganizationName: String
+    businessUnitId: String
+    businessUnitName: String
+    clusterDetials: ClusterDetail
+    replicas: Int
+    userDetails: GetUserById
+    deploymentTime: String
+    buildTime: String
+    buildLogsUrl: String
+}
+
+type ClusterDetail {
+	region_code: String        
+	regionName: String         
+	isDefault: Int             
+	cluster_config_path: String
+	ebl_enabled: String        
+	port: String               
+	cloudType: String          
+	clusterType: String        
+	providerType: String       
+	externalBaseAddress: String
+	externalAgentPlatform: Int 
+	externalLBType: String     
+	externalCloudType: Int     
+	interface: String          
+	route53CountryCode: String 
+	tenantId: String           
+	allocationTag: String      
+}
+
+
+type Changes {
+    nodes: [AppChange]
+}
+
+type Certificates {
+    nodes: [AppCertificate]
+}
+
+type Volumes {
+    nodes: [Volume]
+}
+
+type Volume {
+    id: ID
+    app: String
+    name: String
+    sizeGb: Int
+    region: String
+    createdAt: Time
+}
+
+type Region {
+    code: String
+    name: String
+    latitude: Float
+    longitude: Float
+}
+
+type VMSize {
+    name: String
+    cPUCores: Float
+    memoryGb: Float
+    memoryMB: Int
+    priceMonth: Float
+    priceSecond: Float
+}
+
+type AutoscalingConfig {
+    balanceRegions: Boolean
+    enabled: Boolean
+    maxCount: Int
+    minCount: Int
+    regions: [AutoscalingRegionConfig]
+}
+
+type AutoscalingRegionConfig {
+    code: String
+    minCount: Int
+    weight: Int
+}
+
+type AppConfig {
+    definition: Map
+    services: [Service]
+    valid: Boolean
+    build:Builder
+    errors: [String]
+  
+}
+
+type Builder {
+    builder: String
+    builtin: String
+    image: String
+}
+
+# type Definition {
+#     nodes: String
+# }
+
+type Service {
+    description: String
+    protocol: String
+    internalPort: Int
+    ports: [PortHandler]
+    checks: [Check]
+    softConcurrency: Int
+    hardConcurrency: Int
+}
+
+type PortHandler {
+    port: Int
+    handlers: [String]
+}
+
+type Check {
+    type: String
+    interval: Int
+    timeout: Int
+    httpMethod: String
+    httpPath: String
+    httpProtocol: String
+    httpSkipTLSVerify: Boolean
+    httpHeaders: [HTTPHeader]
+}
+
+type HTTPHeader {
+    name: String
+    value: String
+}
+
+type AppCertificate {
+    id: ID
+    acmeDNSConfigured: Boolean
+    acmeALPNConfigured: Boolean
+    configured: Boolean
+    certificateAuthority: String
+    createdAt: Time
+    DNSProvider: String
+    dNSValidationInstructions: String
+    dNSValidationHostname: String
+    dNSValidationTarget: String
+    hostname: String
+    source: String
+    clientStatus: String
+    isApex: Boolean
+    isWildcard: Boolean
+    issued: Issued
+}
+
+type Issued {
+    nodes: [Issue]
+}
+
+type Issue {
+    expireAt: String
+    type: String
+}
+
+type Chages {
+    nodes: [AppChange]
+}
+
+type AppChange {
+    id: ID
+    createdAt: Time
+    updatedAt: Time
+    actor: Actor
+    status: String
+    description: String
+    reason: String
+    user: User
+}
+
+type Actor {
+    type: String
+}
+
+type Organization {
+    id: String
+    parentId: String
+    parentOrgName: String
+    name: String
+    slug: String
+    type: String
+    domains: Domains
+    region: [RegionDetails]
+    isActive: Boolean
+    subOrg: [SubOrganization]
+}
+
+type RegionDetails {
+    regCode: String
+    isDefault: Boolean
+    regionName: String
+    clusterType: String
+}
+
+
+type IPAddress {
+    id: ID
+    address: String
+    type: String
+    createdAt: Time
+}
+
+type IPAddresses {
+    nodes: [IPAddress]
+}
+
+type Build {
+    id: ID
+    inProgress: Boolean
+    status: String
+    user: User
+    logs: String
+    image: String
+    createdAt: Time
+    updatedAt: Time
+}
+
+type Builds {
+    nodes: [Build]
+}
+
+type Domains {
+    nodes: [Domain]
+    edges: [Edges]
+}
+
+type Domain {
+    id: ID
+    name: String
+    createdAt: Time
+    organization: Organization
+    autoRenew: Boolean
+    delegatedNameservers: [String]
+    zoneNameservers: [String]
+    dnsStatus: String
+    registrationStatus: String
+    expireAt: String
+    dnsRecords: DnsRecords
+}
+
+type DnsRecords {
+    nodes: [DNSRecord]
+}
+
+type DNSRecord {
+    id: String
+    name: String
+    FQDN: String
+    isApex: Boolean
+    isWildcard: Boolean
+    isSystem: Boolean
+    TTL: Int
+    type: String
+    rData: String
+    createdAt: Time
+    updatedAt: Time
+}
+
+type Edges {
+    cursor: String
+    node: Domain
+}
+
+type Releases {
+    nodes: [Release]
+}
+
+type Release {
+    id: ID
+    version: Int
+    stable: Boolean
+    inProgress: Boolean
+    reason: String
+    description: String
+    image: String
+    status: String
+    port: Int
+    deploymentStrategy: String
+    deployment: DeploymentStatus
+    user: User
+    createdAt: Time
+    archiveUrl: String
+    builderType: String
+    routingPolicy: String
+}
+
+type DeploymentStatus {
+    id: ID
+    status: String
+    description: String
+    inProgress: Boolean
+    successful: Boolean
+    createdAt: Time
+    allocations: [AllocationStatus]
+    version: Int
+    desiredCount: Int
+    placedCount: Int
+    healthyCount: Int
+    unhealthyCount: Int
+}
+
+type AllocationStatus {
+    id: ID
+    idShort: String
+    version: Int
+    region: String
+    status: String
+    desiredStatus: String
+    healthy: Boolean
+    canary: Boolean
+    failed: Boolean
+    restarts: Int
+    createdAt: Time
+    updatedAt: Time
+    checks: [CheckState]
+    events: [AllocationEvent]
+    latestVersion: Boolean
+    passingCheckCount: Int
+    warningCheckCount: Int
+    criticalCheckCount: Int
+    transitioning: Boolean
+    recentLogs: [LogEntry]
+}
+
+type CheckState {
+    name: String
+    status: String
+    output: String
+    serviceName: String
+}
+
+type AllocationEvent {
+    timestamp: String
+    type: String
+    message: String
+}
+
+type LogEntry {
+    timestamp: String
+    message: String
+    level: String
+    instance: String
+    region: String
+    meta: Meta
+}
+
+type Meta {
+    instance: String
+    region: String
+}
+
+type Secret {
+    name: String
+    digest: String
+    createdAt: Time
+}
+
+type AppCompact {
+    id: ID
+    name: String
+    status: String
+    deployed: Boolean
+    hostname: String
+    appUrl: String
+    version: Int
+    release: Release
+    organization: Organization
+    ipAddresses: IPAddresses
+    services: [Service]
+}
+
+type Config {
+	registry: Registry
+	domain_mapping: [DomainMapping]
+}
+
+type Registry {
+	server: String
+	username: String
+	password: String
+	email: String
+	secret_name: String
+	repo_type: String
+	organization_id: String
+	isDefault: Int
+}
+
+type DomainMapping {
+	domain_name: String
+	ip_address: String
+	kube_config_path: String
+	node_name: String
+}
+
+input MoveAppInput {
+    appId: String!
+    sourceRegCode: String!
+    destRegCode: String!
+}
+
+input PauseAppInput {
+    appId: String!
+    regionCode: String!
+}
+
+input ResumeAppInput {
+    appId: String!
+    regionCode: String!
+}
+
+input RestartAppInput {
+    appId: String!
+}
+
+input UpdateAppInput {
+    appId: String!
+    internalPort: String!
+    externalPort: String!
+    build: String!   
+    routingPolicy: String!
+    resource: String!
+    replicas: Int!
+}
+
+type Requirement {
+    requestRequirement:RequirementProperties
+    LimitRequirement:RequirementProperties
+}
+
+type RequirementProperties {
+    memory: String
+    cpu: String
+}
+
+input EditAppByOrganization {
+  organizationId: String
+  appName: String
+  subOrganizationId: String
+  businessUnitId: String
+  workloadManagementId: String
+}
+
+
+type AppDeploymentRegion {
+    regions: [Region],
+    availableRegions: [Region]
+}
+
+input UpdateConfig {
+    appId: String
+    appName: String
+    internalPort: String
+    externalPort: String
+    image: String
+    archiveUrl: String
+    version: Int
+    envMapArgs: [String]
+}
+
+type UpdateAppConfig {
+    appId: String
+    appName: String
+    internalPort: String
+    externalPort: String
+    image: String
+    version: Int
+}
+
+
+type ClusterInfo {
+    id:String!
+    name:String!
+    regionCode:String!
+    ipAddress:String!
+    clusterConfigPath:String!
+    clustertype:String!
+    isLatency:Boolean
+    latitude:Float
+    longitude:Float
+    loadBalancerURL:String!
+}
+
+
+type RegionStatus {
+    id: String
+    regionCode: String
+    status: String
+    deploymentId: String
+    port: String
+    appUrl: String
+    releaseId: String
+    elbRecordName: String
+    elbRecordId: String
+}
+
+type PlatFormOutput {
+    code:      String
+    name:      String
+    latitude:  Float
+    longitude: Float
+}
+
+
+type UpdateImageOutput {
+    message: String
+}
+
+type updateConfigApp {
+    message: String
+}
+
+type Regions {
+    regions: [PlatFormOutput]
+}
+
+type appCount {
+    totalApps: Int
+    new: Int
+    active: Int
+    inActive: Int
+    terminated: Int
+    region: [regionAppCount]
+}
+
+type regionAppCount {
+  Region: String
+  apps: Int
+
+}
+
+type ConfigAppTemplates{
+   id: String
+   name: String
+   config: AppConfig
+   envArgs: String
+   routingPolicy: String
+   volumeSize: Int
+   isActive: Boolean
+   createdBy: String
+   createdAt: Time
+   cpuLimit: String
+  memoryLimit: String
+  cpuRequests: String
+  memoryRequests: String
+
+}
+
+
+input ConfigTemplate {
+    id: String
+  appName: String  
+  name: String
+  internalPort: String
+  externalPort: String
+  image: String
+  routingPolicy: String
+  volumeSize: Int
+  isActive: Boolean
+  envArgs: String
+  cpuLimit: String
+  memoryLimit: String
+  cpuRequests: String
+  memoryRequests: String
+}
+
+type AppsOrgsSubCount {
+    organization: String
+    appsCount: Int
+    newApp: Int
+    activeApp: Int
+    inActiveApp: Int
+    subOrganization: [SubOrgCount]
+}
+
+type SubOrgCount {
+    subOrganizationCount: String
+    businessUnit: [BusinessUnitCount]
+}
+
+type BusinessUnitCount {
+    businessUnitCount: String
+    appsCount: AppsCountbyBusinessUnit
+}
+
+type AppsCountbyBusinessUnit {
+    appsCount: Int
+    newApp: Int
+    activeApp: Int
+    inActiveApp: Int 
+}
+
+
+type AppsAndOrgsAndSubOrgCountDetails{
+    totalOrgCount: Int
+    totalSubOrgCount: Int
+    totalBusinessUnitCount: Int
+    totalAppCount: Int
+    orgByAppCount: [AppsOrgsSubCount]
+    region: [regionAppCount]
+}
+type AppsAndOrgsCountDetails{
+    totalOrgCount: Int
+    totalAppCount: Int
+    orgByAppCount: [AppsOrgsCount]
+    region: [regionAppCount]
+}
+type AppsOrgsCount {
+    organization: String
+    appsCount: Int
+    newApp: Int
+    activeApp: Int
+    inActiveApp: Int
+   
+}
+
+input CreateAppToml {
+    appName: String
+    image: String
+    builtin: String
+    organizationId: String
+    internalPort: String
+    externalPort: String
+    build: String
+    routingPolicy: String
+    cpuLimit: String
+    memoryLimit: String
+    cpuRequests: String
+    memoryRequests: String
+}
+
+
+
+type Query {
+    app(name: String): App!
+    apps(type: String, first: Int,region: String, orgSlug: String): Nodes
+    appsSubOrg(type: String, first: Int,region: String, subOrgSlug: String): Nodes
+    appsBusinessUnit(type: String, first: Int,region: String, businessUnit: String): Nodes
+    appsWorkload(name: String, organiztionId: String): Nodes
+    appsWorkloadIdOrUserRole(workloadId: String,userId: String):Nodes
+    appcompact(name: String): AppCompact
+    getAppRegion(name: String!, status:String!):AppDeploymentRegion    
+    getAvailabilityCluster(isLatency: String, first: Int):ClusterNodes!
+    getRegionStatus(appId:String!):RegionStatusNodes
+    platform:Regions
+    appStatusList(status: String):Nodes
+    appQuotaExist:Boolean!
+    checkAppById(name: String!):Boolean!
+    GetAppByAppId(id: String):App!
+    AppsCount: appCount
+    GetAppTemplates: [ConfigAppTemplates]!
+    GetAppsAndOrgsCountDetails: AppsAndOrgsCountDetails!
+    GetAppsAndOrgsandSubOrgCountDetails: AppsAndOrgsAndSubOrgCountDetails!
+}
+
+type Mutation {
+    createApp(input: CreateAppInput!): NewApp!
+    deleteApp(appId: ID!, regionCode: String!): App!
+    moveApp(input: MoveAppInput!): NewApp!
+    pauseApp(input: PauseAppInput!): SuspendApp!
+    resumeApp(input: ResumeAppInput!): ResumeApp!
+    restartApp(input: RestartAppInput!): RestartApp!
+    configureRegions(input: ConfigureRegionsInput):App!
+    updateApp(input: UpdateAppInput!): App!
+    #deleteDuploApp(appName: String): String
+    #updateConfigApp(id: String, newAppName: String): updateConfigApp!
+    # deployApp(input: DeployInput!): DeployOutput!
+    updateImage(appName: String, imageName: String): UpdateImageOutput
+    editApp(input: EditAppByOrganization): String
+    updateConfigApps(input: UpdateConfig): UpdateAppConfig
+    appTemplate(input: ConfigTemplate!): String!
+    updateAppTemplate(input: ConfigTemplate!): String!
+    deleteAppTemplate(id: String): String!
+    checkGithubRepoPrivateOrPublic(githubUrl: String): Boolean
+    createNifeTomlFile(input: CreateAppToml): String!
+    
+}

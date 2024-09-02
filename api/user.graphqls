@@ -1,0 +1,171 @@
+type UpdateUser {
+    companyName: String
+	phoneNumber: String
+	location: String
+	industry: String
+	updatedAt: Time
+}
+
+input UpdateUserInput {
+	id: String
+    companyName: String
+	phoneNumber: String
+	location: String
+	industry: String
+	FirstName: String
+	LastName: String
+	mode: Boolean 
+}
+
+type Password {
+	message: String
+	updatedAt: Time
+}
+
+
+input ChangePassword {
+	id: String!
+	oldpassword: String!
+	newPassword: String!
+}
+
+type GetUserById {
+	id: String
+	email: String
+	companyName: String!
+	phoneNumber: String!
+	location: String!
+	industry: String!
+	firstName: String
+	lastName: String
+	ssoType: String
+	freePlan: Boolean
+	profileImageUrl: String
+	isActive: Boolean
+	isDelete: Boolean
+	companyId: String
+	userProfileCreated: String
+	roleId: Int!
+	companylogo: String!
+	mode: Boolean
+	slackWebhookURL: String
+	organization: [Organizations]
+
+}
+
+input UserById {
+      userId: String!
+}
+
+type CurrentUserEmail{
+	email: String!
+	firstName: String!
+	lastName: String!
+}
+
+type TokenValidation {
+	refreshToken: String
+}
+
+input InviteUser {
+	userEmail: String
+	organization: [String]
+}
+
+input AddUser {
+	 userId: Int
+	 organizationId: [String]
+}
+
+input Image {
+	logoUrl: String!
+}
+
+type appCountsDetails{
+	activeApps: Int
+	deletedApps: Int
+}
+
+type userActivities {
+    id: String
+    type: String
+    userId: String
+    activities: String
+    message: String
+    isRead: Boolean
+	createdAt: Time
+	organizationName: String
+	subOrganizationName: String
+	referenceId: String
+	appsCount: appCountsDetails
+}
+
+input Notification {
+	id: [String]
+	isRead: Boolean
+}
+
+input ByohRequest {
+	organizationId: String
+	ipAddress: String
+	userName: String
+	password: String
+	name: String
+	region: String
+	status: String
+}
+
+type UserDeploymentDetailCount{
+	userName: String
+	email: String
+	companyName: String
+	roleId: Int
+	totalDeployed: Int
+	totalReDeployed: Int
+	deployData: [DeploymentCountByDate]
+	reDeployData: [ReDeploymentCountByDate]
+}
+
+type DeploymentCountByDate{
+	date: String
+	deployed: Int
+}
+type ReDeploymentCountByDate{
+	date: String
+	reDeployed: Int
+}
+type InviteUserOutputMessage {
+    message: String
+	userId: Int
+}
+
+extend type Query {
+  	getUserById: GetUserById!
+	currentUser: CurrentUserEmail!
+	getUserByAdmin: [GetUserById]
+	getUserByAdminAndOrganization(organizationId: String): [GetUserById]
+	userActivities(first: Int): [userActivities]
+	userActivitiesByDate(startDate: String, endDate: String): [userActivities]
+	GetInviteUserCountByAdminUser: Int
+	userDeploymentCountDetails(startDate: String, endDate: String): [UserDeploymentDetailCount]
+	getUserByOrganizationId(organizationId: String): [GetUserById]
+}
+
+
+extend type Mutation{
+    updateUser(input: UpdateUserInput): UpdateUser
+	changePassword(input: ChangePassword!): Password
+	ActiveUser(IsActive: Boolean, IsDelete: Boolean): String!
+	inviteUser(input: InviteUser): InviteUserOutputMessage
+	addInviteUserRole(email: String!, roleId: Int!): String
+    removeUserOrg(OrganizationId: String, UserId: String): String
+    userProfileUpdated(userId: String, userProfileCreated: Boolean):String
+	addUserToOrg(input: AddUser): String!
+	uploadCompanyLogo(input: Image): String!
+	removeInviteuser(userId: String): String!
+	notificationInfo(input: Notification): String!
+	userRequestingByoh(input: ByohRequest): String!
+	requestingPicoNets(appName: String): String!
+	setUserTokenExpireTime(ExpireTime: Int): String!
+	updateUserwebhookURLSlack(webhookURL: String): String! 
+}

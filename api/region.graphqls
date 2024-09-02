@@ -1,0 +1,49 @@
+input DefaultRegionInput {
+    region: String
+    organizationId: String
+}
+
+input RegionRequest {
+    region: [String]
+    email: String
+    firstName: String
+    lastName: String
+}
+
+input MultipleRegionInput {
+    region: [String]
+    organizationId: String
+    isDefault: Boolean
+}
+
+type MultipleRegionResponse {
+    region: [String]
+    isDefault: Boolean
+}
+
+type RequestedRegions{
+    id: String
+    userName: String
+    status: String
+    createdBy: String
+    createdAt: String
+    requestedRegion: String
+}
+
+type RequestedRegionsResponse{
+    requestedRegions: [String]
+    alreadyRequestedRegions: [String]
+    message: String
+}
+
+extend type Query{
+    getRequestedRegions:[RequestedRegions]
+}
+
+extend type Mutation {
+    updateDefaultRegion(input: DefaultRegionInput): String!
+    newRegionRequest(input: RegionRequest): String!
+    newRegionsRequest(input: RegionRequest): RequestedRegionsResponse!
+    mutipleRegion(input: MultipleRegionInput): MultipleRegionResponse
+    deleteRequestedRegion(id: String): String!
+}

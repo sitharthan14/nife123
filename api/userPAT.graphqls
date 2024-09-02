@@ -1,0 +1,26 @@
+input UserPAT{
+	id: String
+    type: String!
+    patToken: String!
+    userId: String
+}
+
+type GetUserPAT{
+    id: String
+    type: String
+    patToken: String
+    userId: String
+    createdAt: Time
+    updatedAt: Time
+}
+
+extend type Query {
+    getUserPAT: [GetUserPAT]!
+}
+
+
+extend type Mutation{
+    addPAT(input: UserPAT): String!
+    updatePAT(input: UserPAT): String!
+    deletePAT(id: String): String!
+}

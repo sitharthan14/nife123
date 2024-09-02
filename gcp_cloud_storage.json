@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "nested-vms-290310",
+    "private_key_id": "f0db115d91ec21666f75f6526fb33e16a01cf88e",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCeNkN4DU/56O2j\nFXR5ig7fcNZb50tQyPSbVD44gSTebeU3sxjZKXGLF15kemRED0OOzpUZQy51F19E\nuR+BLJqJaDSEWuWqS0issNycPkrFTj8ySZuAgol00XG0BhMaZfs+OPCg+wSNrQvA\nzqx0/vLEl9EFhNzG0QfR2MVkLZ0+QczXxBy8ECLljB6XyjMFezjLfFInqmIGs7U+\nibmvo9md4u1OI0Amcikx2D4wF1LS7/on4SVQcx8BxeIHVK2lzv4/skxe/W1fHIEP\nsZar53uDW8TU3JppLLWiCEVwj4wjkgsWqeq5un8cedeBMWfdmOwwlOSPqTILca04\n5YOH60VxAgMBAAECggEAQ6Jd8GX8gRD++d9TphuLZSDXOn2juFrYGskGOmCXEtF3\nEnspTbjGVdg9HYYm8+N0lYmhuqV6KEtACmB7Y9zeCYy3GrfDA6xgWpbXEKIek79y\nC7zk0ai8O2jIC1Ynd3sOT1jHIYJ9vVUzN48CsZdF0B44mHvmZ8X3alGZfMx1MqYB\nap4LD9IPIaxOgFKpR7ecn8lxTufLAZ8QAYuKnKK35MWWgDi4JYq6sS0Uu+3+pD2a\ncMmjB7NeAPa3QwyeyorvtrT0t8Yh5Sd37W9CAWWDum1GkF4RGCYOKjB7Hn7OQewO\npF/RsG13Bv1Rx5HBLhTgjagm5UFKdDObpIqn985M+wKBgQDJVlFxTSKPhuNAjxZc\nhmIBqYoX5aBjPGFooxK7m/WMwfXTMDNI3NFkC/rGaVSu7HJn1Jhg+XROmndkxAev\n8LFYcbeDz0jI+WeE4vMg5igwmdm99nXa8yM8FoETTjvE/864WbLDhOD8VxEgRug1\nJI8xSmi3GL1y6rK3KmTQMixoawKBgQDJKpU515G7FWs16+1Wy/3G6DcM1kQlnuwk\nIcIAJRgHl7JkKgiK2vvFyv/k5WC9nsSsVOHx0+DOBADLvy20rxLopy4sW9Vk1sel\nyRIcDgUXtyWOQeOTRAa4tvdg2q0sCvArWN1iiKcPBcnbunPO90gtzEZsrIGCAxJJ\nhYLSAVXwkwKBgDmFs9cPFqSzARJczyK4MiAPdCjHrj8r7RicHqoDMPB6KeWgi8Zx\ncFGJKqitR0iCvVz03GQ4YQZkE2BysU+PENwYATpjaoQg3XaV8KihmTHpgtBHLfzU\nImj0dQQzAdiSzVjWJ8C8ohr2NSpnl8g3HcITZD+LjfTbIRw7vHnPG+jpAoGBALgm\nJA6cGIqTE957h3tSJ5Di2CoHJsDtlyuIP4hUbIfexO3OUJ2T0rCAoPmPRJywb0d2\nOJNgKsVMgtIAwz1Imt2g1LLEqjayKnbH9qz55I2OGXH9PO99cU28J/5gj+/mX26+\n3YIqqAsneF6Ncx/92/QYsEshKzixyRbGgjfuAxbDAoGAHhCoZUZbBFxyCGjsWHkS\ncrNWzoOSnvQJUOVnGr2+A1P/dI1JrZGvoVYfMtzUp4WZ1DYqXUge9lBQ74jM2OiR\na1L2RmuHoMXeZTpLxCyZLpiXMyaaldWwLB1NwqKABKxlwjISayMilo7OGlOgTard\nAFPYdrMZKqqWJgrOcISVPIg=\n-----END PRIVATE KEY-----\n",
+    "client_email": "bucket-handler@nested-vms-290310.iam.gserviceaccount.com",
+    "client_id": "115208269693853303733",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bucket-handler%40nested-vms-290310.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }

@@ -1,0 +1,54 @@
+type ClusterDetails {
+    id: String
+    regionCode: String
+    providerType: String
+    clusterType: String
+    regionName: String
+    externalBaseAddress: String
+    externalAgentPlatForm: Int
+    externalLBType: String
+    externalCloudType: Int
+    interfaceType: String
+    route53countryCode: String
+    tenantId: String
+    allocationTag: String
+    loadBalancerURL: String
+    isDefault: Int
+    clusterConfigPath: String
+    clusterConfigUrl: String
+	eblEnabled: String
+    port: String
+
+}
+
+input ClusterDetailsInput {
+    regionCode: String
+    providerType: String
+    clusterType: String
+    regionName: String
+    interfaceType: String
+    allocationTag: String
+    loadBalancerURL: String
+    isDefault: Int
+    clusterConfigUrl: String
+}
+
+type CloudRegions{
+    code: String
+    name: String
+    type: String
+}
+
+extend type Query {
+    getClusterDetails(regCode:String): ClusterDetails
+    getClusterDetailsByOrgId(orgId: String): ClusterDetails
+    getClusterDetailsByOrgIdMultipleReg(orgId: String): [ClusterDetails]
+    getUserAddedRegions:[ClusterDetails]
+    getCloudRegions(type: String):[CloudRegions]!
+}
+
+
+extend type Mutation{
+    addRegionUsingKubeConfig(input: ClusterDetailsInput):String!
+    deleteKubeConfigRegion(id: String): String!
+}

@@ -1,0 +1,109 @@
+definitions:
+  users.Attributes:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  users.Data:
+    properties:
+      attributes:
+        $ref: '#/definitions/users.Attributes'
+    type: object
+  users.LoginRequestBody:
+    properties:
+      data:
+        $ref: '#/definitions/users.Data'
+    type: object
+  users.RefreshTokenRequestBody:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  users.TokenAttrib:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  users.TokenAttributes:
+    properties:
+      attributes:
+        $ref: '#/definitions/users.TokenAttrib'
+    type: object
+  users.TokenErrorBody:
+    properties:
+      message:
+        type: string
+    type: object
+  users.TokenResponseBody:
+    properties:
+      data:
+        $ref: '#/definitions/users.TokenAttributes'
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user to create JWT token
+      parameters:
+      - description: Create Token
+        in: body
+        name: dataBody
+        required: true
+        schema:
+          $ref: '#/definitions/users.LoginRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.TokenResponseBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/users.TokenErrorBody'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/users.TokenErrorBody'
+      summary: Authenticate user
+      tags:
+      - login
+  /api/v1/refreshToken:
+    post:
+      consumes:
+      - application/json
+      description: Reauthenticate user by renewing JWT token
+      parameters:
+      - description: Refresh Token
+        in: body
+        name: dataBody
+        required: true
+        schema:
+          $ref: '#/definitions/users.RefreshTokenRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.TokenResponseBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/users.TokenErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/users.TokenErrorBody'
+      summary: Reauthenticate user using refresh_token
+      tags:
+      - refreshToken
+swagger: "2.0"

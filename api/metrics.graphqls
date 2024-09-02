@@ -1,0 +1,37 @@
+
+
+type GetUserMetrics {
+    resolverIp: String
+    timeStamp: String
+    queryType: String    
+}
+
+input DataDogInput{
+    id: String
+    apiKey: String
+    appKey: String
+    apiEndpoint: String
+    clusterId: String
+    userId: String
+    isActive: Boolean
+}
+
+type AddedDataDog{
+    id: String
+    apiKey: String
+    appKey: String
+    apiEndpoint: String
+    clusterId: String
+    clusterDetails: ClusterDetails
+}
+
+extend type Query {
+    userMetrics(appName:String):[GetUserMetrics]
+    getDataDogByUserId:[AddedDataDog]
+}
+
+extend type Mutation {
+    addDataDogBYOC(input: DataDogInput!): String!
+    updateDataDogByoc(input: DataDogInput): String!
+    deleteDataDogByoc(dataDogId: String!):String!
+}

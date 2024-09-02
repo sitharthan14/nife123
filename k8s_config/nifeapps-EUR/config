@@ -1,0 +1,29 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJek1EUXlOREV3TWpReE5Wb1hEVE16TURReU1URXdNalF4TlZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBT0NSClpxd0M2R1B4RDhjUjVIMTJ1OFNBUUd5SXZLR3RZYy94bkxLS3JXOWtNbllwZDNrUGV4SnRlWXltTU9VUWZuS3gKellIZDB3NzJYaUM1NlloaVRCcnRxdm51VEU0a3lCQTRWSGlmNWdEcnRhS2hDekU5dFNyalpSVHNtVEhZVzBFVwpSUXR6TDY1SUZxcERDczcwU2U3L25mR1BOY3BUUk1UelRsN3QyZ1hnbnZ3dlk0dUN5OCs3TCs4U0xvRzIweXQ3CndZbVJPdk43ZkxCVWtVTTNSL0FrMGtkT29UU3NwU3p6RlR4Y0FWOVU0UHVrNncvb1ZmcUJ1bjZDcEdGK0Q0M3cKRE03L0Y2N1BzekhxcVZ4MUJyK1QwUVhoMlY0VjVVSkJFVWdCRlBFbTduVEUvQUtneHhiVTlCVVAxTFNqSDZjegpVWkR4OUdaSzBWNXRDZkYyVytVQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZLWFdCdU9CdEdTL2JsOWxLaG4rS1NZMGpCaTBNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBTWloMkttWnExaW9vVE1LVEFHegpjaHkxZkdMcWtRbGltVDdUWGJIRU9OeGtrVkdrNndxa3hMSndCV2w1WmQ5TG42TTlYdEJjVzNKT0hkNkRYU2xvCkFpYkl0RlVUS3JMK2tQZDhVRTlTVDFuaTNFbUI5MHYxM2d0VVVXOHNoQXk2YTBlWWYzTDhTZjUrUzFsWHEzZVIKejZoTjZTMmZyRGJxc3hMa1IxZHZMczJEOTgrNXoxMGxhRW0ybCsyZ0FqMjgxbVdnUHBOWlVvTkdraDNwcmtQOApMbUxRZmYyVU15MTRlUFdRR1g1SHZ3bmhZUjl6WHF3UGQ1dExNekhrd1ZwRDZsSERkNVRZTGRkR2g5dE1PaU5ICjFFR0tROElVS1FqVGo0WjVnNTZ3bTFmV01vdFFkREhWQi8wcHF0QmtiZjhoSC9CYWE1NUpJRjNQeWRGRzl4MFkKRFNNPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://D71F56F65893CC9D4B525E1780141FE8.gr7.eu-west-2.eks.amazonaws.com
+  name: arn:aws:eks:eu-west-2:882966709966:cluster/eu-west-2-prod-eks-cluster
+contexts:
+- context:
+    cluster: arn:aws:eks:eu-west-2:882966709966:cluster/eu-west-2-prod-eks-cluster
+    user: arn:aws:eks:eu-west-2:882966709966:cluster/eu-west-2-prod-eks-cluster
+  name: arn:aws:eks:eu-west-2:882966709966:cluster/eu-west-2-prod-eks-cluster
+current-context: arn:aws:eks:eu-west-2:882966709966:cluster/eu-west-2-prod-eks-cluster
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:eu-west-2:882966709966:cluster/eu-west-2-prod-eks-cluster
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - --region
+      - eu-west-2
+      - eks
+      - get-token
+      - --cluster-name
+      - eu-west-2-prod-eks-cluster
+      - --output
+      - json
+      command: aws

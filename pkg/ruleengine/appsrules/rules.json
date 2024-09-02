@@ -1,0 +1,36 @@
+{
+  "application": {
+    "application": "NifeRules",
+    "appRules": [
+      {
+        "rule": {
+          "if": {
+            "conditions": [
+              {
+                "comparator": "eq",
+                "parameter": "image_name",
+                "value": "sundar21/repo:nodeapp"
+              }
+            ],
+            "then": {
+              "ruleResponse": {
+                "response": [
+                  "191.122.12.23"
+                ]
+              }
+            }
+          },
+          "else": {
+            "then": {
+              "ruleResponse": {
+                "response": [
+                  "191.122.12.23"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

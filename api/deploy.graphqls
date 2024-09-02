@@ -1,0 +1,139 @@
+input DeployImageInput {
+    appId: String!
+    image: String!
+    definition: Map
+    strategy: String
+    services:[Map]
+    envArgs: String
+    envMapArgs: [String]
+    archiveUrl: String
+  
+   
+}
+
+input OptimizeImageInput {
+    appId: String!
+    image: String!
+}
+
+type OptimizeImage {
+    status: String
+}
+
+type StartBuild {
+    build: Build
+    buildLogs: [String]
+}
+
+type DeployOutput {
+    deploymentName: String!
+    serviceName: String!
+    hostName : String!
+    url: String!
+    Id: String!
+    existDeployment: Boolean
+    releaseId: String
+    loadBalanceURL: String
+    containerId: String
+}
+
+input DeployInput {
+    imageName: String!
+    appId:String
+    appName: String
+    serviceName: String
+    nodeName: String
+    port: String
+}
+
+
+input StartBuildInput {
+    appId: String
+    sourceUrl: String
+    sourceType: String
+    buildType: String
+    imageTag: String
+    buildArgs: Map
+    fileExtension: String!
+    dockerFile: String
+    dockerFilePath: String
+}
+
+input ElbUrlInput{
+    appName: String
+}
+
+type ElbUrl{
+    elbUrl: String
+}
+
+type BuildArgsInput {
+    name: String
+    value: String
+}
+
+type DeployImage {
+    release: Release
+}
+
+input S3DeployInput {
+    s3AppName: String
+    s3Url: String
+    buildFileName: String
+    buildCommandsS3: [S3BuildCommands]
+    envVariablesS3: [S3EnvVariables]
+    organizationId: String
+    deployBuildFile: Boolean
+}
+
+input S3EnvVariables {
+    name: String
+    value: String
+}
+
+input S3BuildCommands {
+    s3Cmd: String
+}
+
+type S3EnvVariable {
+    name: String
+    value: String
+}
+
+type S3BuildCommand {
+    s3Cmd: String
+}
+
+type S3Deployments {
+    id: String
+    s3AppName: String
+    status: String
+    appUrl: String
+    buildCommandsS3: [S3BuildCommand]
+    envVariablesS3: [S3EnvVariable]
+    organizationId: String
+    orgDetails: Organization
+    deploymentTime: String
+    buildTime: String
+    createdBy: String
+    userDetails: GetUserById
+    createdAt: Time
+}
+
+
+extend type Query {
+    GetAvailableBuiltIn(first: Int): [String!]
+    getElbUrl(input: ElbUrlInput): ElbUrl
+    getAllS3deployments:[S3Deployments]
+    getS3deployments(s3AppName: String):S3Deployments
+ }
+
+extend type Mutation {
+    deployImage(input: DeployImageInput!): DeployImage!
+    optimizeImage(input: OptimizeImageInput!): OptimizeImage!
+    deployK8S(input: DeployInput!): DeployOutput!
+    startBuild(input:StartBuildInput!): StartBuild!
+    S3Deployment(input:S3DeployInput):String!
+    removeFiles(s3AppName: String): String
+    deleteS3Deployment(s3AppName: String): String
+}

@@ -1,0 +1,26 @@
+input MigrateOrganizationInput {
+    organizationIdFrom: String
+    organizationIdTo: String    
+}
+
+type businessUnitListInSubOrg{
+    subOrgId: String
+    subOrgName: String
+    businessUnitUnderSubOrg: [listBusinessUnit]
+}
+
+type AppInSubOrg{
+    subOrgId: String
+    subOrgName: String
+    appsInSubOrgs: [App]
+}
+
+type AppInBusinessUnit{
+    businessUnitId: String
+    businessUnitName: String
+    appsInBusinessUnit: [App]
+}
+
+extend type Mutation {
+    migrateOrganization(input : MigrateOrganizationInput!): String!
+}
